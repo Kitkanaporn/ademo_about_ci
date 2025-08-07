@@ -5,11 +5,16 @@ describe('useCounter', () => {
   it('should update val and increment by new val', () => {
     const { result } = renderHook(() => useCounter());
 
+    // อัปเดต val ก่อน
     act(() => {
-      result.current.setVal(5);      // เปลี่ยนค่า val
-      result.current.increment();    // เพิ่ม count ด้วยค่าใหม่
+      result.current.setVal(5);
     });
 
-    expect(result.current.count).toBe(5); // ค่าที่คาดหวัง
+    // ค่อยเรียก increment หลังจาก val เปลี่ยนแล้ว
+    act(() => {
+      result.current.increment();
+    });
+
+    expect(result.current.count).toBe(5); // count ควรเพิ่มขึ้นเป็น 5
   });
 });
